@@ -7,6 +7,7 @@ and a launch site. All coordinates in meters (SI / ENU).
 
 import numpy as np
 from dataclasses import dataclass, field
+from typing import Dict, Optional, Tuple
 
 
 @dataclass
@@ -100,7 +101,7 @@ class TerrainConfig:
 class Terrain:
     """Generated terrain with elevation grid, targets, and launch site."""
 
-    def __init__(self, config: TerrainConfig | None = None, seed: int = 42):
+    def __init__(self, config: Optional[TerrainConfig] = None, seed: int = 3141):
         self.config = config or TerrainConfig()
         self.rng = np.random.default_rng(seed)
 
@@ -419,7 +420,7 @@ class DetectionFeed:
         self.columns: list[str] = [d.name for d in self.detectors]
 
     def query(self, t: float, missiles: list[tuple[float, float, float]]
-              ) -> dict[str, tuple[float, float, float] | None]:
+              ) -> Dict[str, Optional[Tuple[float, float, float]]]:
         """Return one snapshot of the feed at time *t*.
 
         Parameters
@@ -434,7 +435,7 @@ class DetectionFeed:
         dict mapping detector name → (x, y, z) of the first missile it
         detects, or None if it sees nothing.
         """
-        row: dict[str, tuple[float, float, float] | None] = {
+        row: Dict[str, Optional[Tuple[float, float, float]]] = {
             name: None for name in self.columns
         }
 
