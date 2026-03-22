@@ -66,7 +66,7 @@ class TerrainConfig:
 
     # Elevation
     base_elevation: float = 200.0     # floor elevation (m)
-    num_mountains: int = 12
+    num_mountains: int = 3
     mountain_height_range: tuple = (800.0, 3500.0)
     mountain_spread_range: tuple = (1500.0, 5000.0)
 
